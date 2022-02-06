@@ -2,8 +2,9 @@ package com.ecom.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.LongStream;
 
-import javax.print.attribute.standard.Media;
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom.DAO.PersonDAO;
 import com.ecom.entity.Person;
+import com.ecom.utils.Utils;
 
 @RestController
 public class PersonController {
@@ -69,4 +71,20 @@ public class PersonController {
 		LOGGER.info("Inside updatePerson method from PersonController");
 		return new ResponseEntity<>(personDAOImpl.updatePerson(person), HttpStatus.OK);
 	}
+	
+	/***
+	@PostConstruct
+	public void generatePersons() {
+		LOGGER.info("Auto generated some persons and stored in DB");
+		LongStream.range(1,50).forEach(num -> {
+			Person p = new Person();
+			p.setId(num);
+			p.setAge((int)num + 20);
+			p.setName("person_"+num);
+			p.setNumber(Utils.generateRamdonNumber());
+			p = personDAOImpl.create(p);
+			// LOGGER.info("created a new person with id : "+p.getId());
+		});
+	}
+	*/
 }
